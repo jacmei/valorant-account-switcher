@@ -6,7 +6,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #include lib\class_cng.ahk
 
 global riotClientPath := "C:\Riot Games\Riot Client\RiotClientServices.exe"
-global key := "A key in cryptography is a piece of information, usually a string of numbers or letters that are stored in a file, which, when processed through a cryptographic algorithm, can encode or decode cryptographic data."
+global key := "If whenever the army attacks it is like a whetstone thrown against an egg, it is due to the vacuous and substantial."
 global hash := Crypt.Hash.String("SHA1", key)
 
 main()
@@ -69,14 +69,20 @@ submit() {
 }
 
 login(x, y) {
+	saved := clipboard
 	WinActivate, Riot Client
 	MouseClick, left, 250, 250
 	Send, ^a
 	Send, {Delete}
-	Send, %x%
+	clipboard := x
+	Send, ^v
+	Sleep, 100
 	Send, %A_Tab%
-	Send %y%
+	clipboard := y
+	Send, ^v
+	Sleep, 100
 	Send, {Enter}
+	clipboard := saved
 }
 
 openClient(x, y) {
