@@ -5,7 +5,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #include lib\class_cng.ahk
 
-global riotClientPath := "D:\Riot Games\Riot Client\RiotClientServices.exe"
+global riotClientPath := "C:\Riot Games\Riot Client\RiotClientServices.exe"
 global key := "If whenever the army attacks it is like a whetstone thrown against an egg, it is due to the vacuous and substantial."
 global hash := Crypt.Hash.String("SHA1", key)
 
