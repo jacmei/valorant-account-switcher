@@ -5,7 +5,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #include lib\class_cng.ahk
 
-global riotClientPath := "C:\Riot Games\Riot Client\RiotClientServices.exe"
+global riotClientPath := "D:\Riot Games\Riot Client\RiotClientServices.exe"
 global key := "If whenever the army attacks it is like a whetstone thrown against an egg, it is due to the vacuous and substantial."
 global hash := Crypt.Hash.String("SHA1", key)
 
@@ -17,7 +17,7 @@ main() {
 	Gui, main:New
 	load()
 	numButtons ++
-	Gui, main:Add, Button, x70 w60 h25 gadd, New...
+	Gui, main:Add, Button, x70 w60 h25 gadd, Add/Edit
 	guiHeight := numButtons * 42.5
 	Gui, main:Show, w200 h%guiHeight%
 }
@@ -71,7 +71,8 @@ submit() {
 login(x, y) {
 	saved := clipboard
 	WinActivate, Riot Client
-	MouseClick, left, 250, 250
+	Sleep, 100
+	MouseClick, left, 225, 255
 	Send, ^a
 	Send, {Delete}
 	clipboard := x
@@ -86,15 +87,8 @@ login(x, y) {
 }
 
 openClient(x, y) {
-	if WinExist("Riot Client") {
-		login(x, y)
-		ExitApp
-	} 
-	else {
-		Run %riotClientPath% --launch-product=valorant --launch-patchline=live
-		while (!WinExist("Riot Client")) {
-		}
-		login(x, y)
-		ExitApp
+	Run %riotClientPath% --launch-product=valorant --launch-patchline=live
+	while (!WinExist("Riot Client")) {
 	}
+	login(x, y)
 }
