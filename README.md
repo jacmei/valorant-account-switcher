@@ -6,10 +6,10 @@ A simple AutoHotKey script to make logging into different Valorant accounts more
 
 Make sure to have AutoHotKey already installed.
 
-Ensure your Riot Games client is set correctly in global variable `riotClientPath` and a custom key is set in `key`
-
 Simply right click and `Run Script`
 
-Click on `New...` and fill out the form with your credentials
+Set your VALORANT install location
 
-Click on the button with your account name and the game will be launched with your credentials  
+Click on `Add/Edit` and fill out the form with appropriate credentials
+
+Click on one of the newly created buttons to launch game

@@ -13,19 +13,50 @@ main()
 return
 
 main() {
-	global numButtons := 0 ; Starting with 1 for existing button(s)
+	setup()
+	global buttonRows := 0
 	Gui, main:New
 	load()
-	numButtons ++
-	Gui, main:Add, Button, x70 w60 h25 gadd, Add/Edit
-	guiHeight := numButtons * 42.5
+	buttonRows ++
+	Gui, main:Add, Button, x35 y+15 w60 h25 gadd, Add/Edit
+	Gui, main:Add, Button, x105 y+-25 w60 h25 gpath, Set Path
+	guiHeight := buttonRows * 42.5
 	Gui, main:Show, w200 h%guiHeight%
+}
+
+path() {
+	FileCreateDir, %A_ScriptDir%\pre
+	MsgBox, 48, ,
+	(
+Confirm the location VALORANT is installed.`n
+The file should be named RiotClientServices.exe`n
+Example installation path: C:\Riot Games\Riot Client\RiotClientServices.exe
+	)
+	IfMsgBox, OK
+		FileSelectFile, riotClientPath
+		file := FileOpen(A_ScriptDir . "\pre\setup.txt", "w")
+		file.write(riotClientPath)
+		file.close()
+}
+
+setup() {
+	global
+	if FileExist(A_ScriptDir . "\pre\setup.txt") {
+		FileRead, riotClientPath, %A_ScriptDir%\pre\setup.txt
+		IfNotExist, %riotClientPath%
+		{
+			MsgBox, 16, , Invalid path set in setup file
+			path()
+		}
+	}
+	else {
+		path()
+	}
 }
 
 load() {
 	global ; enables global mode for declaration of dynamic variable for GUI
-	If InStr(FileExist(A_ScriptDir . "\out"), "D")
-	{
+	if InStr(FileExist(A_ScriptDir . "\out"), "D") {
 		Loop, Files, %A_ScriptDir%\out\*.txt
 		{
 			local credential := ""
@@ -38,7 +69,7 @@ load() {
 			local fn := Func("openClient").Bind(username, password)
 			Gui, main:Add, Button, x50 w100 h35 v%username%, %label%
 			GuiControl +g, %username%, % fn
-			numButtons ++
+			buttonRows ++
 		}
 	}
 }
@@ -60,7 +91,7 @@ submit() {
 	global ; enables global mode for declaration of variables for GUI
 	Gui, add:Submit
 	credential := username . "`n" . password . "`n" . label
-	If !InStr(FileExist(A_ScriptDir . "\out"), "D")
+	if !InStr(FileExist(A_ScriptDir . "\out"), "D")
 		FileCreateDir, %A_ScriptDir%\out
 	file := FileOpen(A_ScriptDir . "\out\" . username . ".txt", "w")
 	file.write(Crypt.Encrypt.String("AES", "CBC", credential, hash))
@@ -70,7 +101,7 @@ submit() {
 
 login(x, y) {
 	saved := clipboard
-	WinActivate, Riot Client
+	WinActivate, "ahk_exe RiotClientUx.exe"
 	Sleep, 100
 	MouseClick, left, 225, 255
 	Send, ^a
@@ -88,7 +119,7 @@ login(x, y) {
 
 openClient(x, y) {
 	Run %riotClientPath% --launch-product=valorant --launch-patchline=live
-	while (!WinExist("Riot Client")) {
+	while (!WinExist("ahk_exe RiotClientUx.exe")) {
 	}
 	login(x, y)
 }
