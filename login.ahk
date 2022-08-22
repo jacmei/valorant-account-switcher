@@ -101,16 +101,22 @@ submit() {
 
 login(x, y) {
 	saved := clipboard
-	WinActivate, "ahk_exe RiotClientUx.exe"
-	Sleep, 100
+	WinActivate, ahk_exe RiotClientUx.exe
+	WinWaitActive, ahk_exe RiotClientUx.exe
 	MouseClick, left, 225, 255
+	Sleep, 100
 	Send, ^a
+	Sleep, 100
 	Send, {Delete}
+	Sleep, 100
 	clipboard := x
+	Sleep, 100
 	Send, ^v
 	Sleep, 100
 	Send, %A_Tab%
+	Sleep, 100
 	clipboard := y
+	Sleep, 100
 	Send, ^v
 	Sleep, 100
 	Send, {Enter}
@@ -119,7 +125,5 @@ login(x, y) {
 
 openClient(x, y) {
 	Run %riotClientPath% --launch-product=valorant --launch-patchline=live
-	while (!WinExist("ahk_exe RiotClientUx.exe")) {
-	}
 	login(x, y)
 }
