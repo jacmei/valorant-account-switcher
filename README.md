@@ -2,11 +2,11 @@
 
 A simple AutoHotKey script to make logging into different Valorant accounts more convenient.
 
-## How To Use
+## Prerequisites
 
-Make sure to have AutoHotKey already installed.
+Ensure Riot Client is not set to log in automatically
 
-Simply right click and `Run Script`
+## How To Us
 
 Set your VALORANT install location
 
