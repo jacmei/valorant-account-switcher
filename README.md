@@ -6,7 +6,7 @@ A simple AutoHotKey script to make logging into different Valorant accounts more
 
 Ensure Riot Client is not set to log in automatically
 
-## How To Us
+## How To Use
 
 Set your VALORANT install location
 
