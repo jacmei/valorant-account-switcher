@@ -1,6 +1,6 @@
 # Valorant Account Switcher
 
-A simple AutoHotKey script to make logging into different Valorant accounts more convenient.
+A simple AutoHotKey script to make logging into different Valorant accounts more convenient
 
 ## Prerequisites
 
