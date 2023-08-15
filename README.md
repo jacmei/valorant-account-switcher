@@ -13,3 +13,9 @@ Set your VALORANT install location
 Click on `Add/Edit` and fill out the form with appropriate credentials
 
 Click on one of the newly created buttons to launch game
+
+## Issues/Answers
+
+*The program doesn't do anything but open up the Riot Client*
+
+> Set the program to run as administrator 
