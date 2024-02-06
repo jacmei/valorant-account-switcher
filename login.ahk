@@ -103,14 +103,17 @@ login(x, y) {
 	saved := clipboard
 	WinActivate, ahk_exe RiotClientUx.exe
 	WinWaitActive, ahk_exe RiotClientUx.exe
-	while (True) {
-		PixelGetColor color, 160, 80, RGB
-		if (color = 0xEb0029) {
-			break
+	readyCounter := 0
+	while (readyCounter < 3) {
+		MouseMove, 225, 255
+		if (A_Cursor = "IBeam") {
+			readyCounter += 1
+			Sleep, 500
 		}
-		Sleep, 50
+		else {
+			Sleep, 100
+		}
 	}
-	Sleep, 100
 	MouseClick, left, 225, 255
 	Sleep, 100
 	Send, ^a
@@ -129,7 +132,7 @@ login(x, y) {
 	Sleep, 100
 	Send, {Enter}
 	clipboard := saved
-	Sleep, 100
+	Sleep, 500
 	main()
 }
 
