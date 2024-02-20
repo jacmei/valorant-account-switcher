@@ -137,7 +137,7 @@ login(x, y) {
 }
 
 openClient(x, y) {
-	HitList:="VALORANT.exe|VALORANT-Win64-Shipping.exe"
+	HitList:="VALORANT.exe|VALORANT-Win64-Shipping.exe|RiotClientServices.exe"
 	Loop, Parse, HitList, |
 	{
 		Loop
@@ -147,9 +147,11 @@ openClient(x, y) {
 				Process, Close, %A_LoopField%
 			else
 				break
-			Sleep, 100
+			Sleep, 3000
 		}
 	}
 	Run %riotClientPath% --launch-product=valorant --launch-patchline=live
 	login(x, y)
 }
+
+Esc::ExitApp
