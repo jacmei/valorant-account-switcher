@@ -101,20 +101,18 @@ submit() {
 
 login(x, y) {
 	saved := clipboard
-	WinActivate, ahk_exe RiotClientUx.exe
-	WinWaitActive, ahk_exe RiotClientUx.exe
 	readyCounter := 0
-	while (readyCounter < 3) {
-		MouseMove, 225, 255
+	while (readyCounter < 2) {
+		MouseMove, 190, 255
 		if (A_Cursor = "IBeam") {
 			readyCounter += 1
-			Sleep, 500
+			Sleep, 300
 		}
 		else {
 			Sleep, 100
 		}
 	}
-	MouseClick, left, 225, 255
+	MouseClick, left, 190, 255
 	Sleep, 100
 	Send, ^a
 	Sleep, 100
@@ -133,10 +131,10 @@ login(x, y) {
 	Send, {Enter}
 	clipboard := saved
 	Sleep, 500
-	main()
 }
 
 openClient(x, y) {
+	main()
 	HitList:="VALORANT.exe|VALORANT-Win64-Shipping.exe|RiotClientServices.exe"
 	Loop, Parse, HitList, |
 	{
@@ -151,6 +149,9 @@ openClient(x, y) {
 		}
 	}
 	Run %riotClientPath% --launch-product=valorant --launch-patchline=live
+	SetTitleMatchMode, 2
+	WinActivate, ahk_exe Riot Client.exe
+	WinWaitActive, ahk_exe Riot Client.exe
 	login(x, y)
 }
 
