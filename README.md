@@ -18,4 +18,8 @@ Click on one of the newly created buttons to launch game
 
 *The program doesn't do anything but open up the Riot Client*
 
-> Set the program to run as administrator 
+> Set the program to run as administrator
+
+*What prerequisites do I need to make my own changes?*
+
+> Download `AutoHotkey v1.1` in order for the cryptographic functions to work

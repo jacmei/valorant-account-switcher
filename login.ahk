@@ -20,7 +20,9 @@ main() {
 	buttonRows ++
 	Gui, main:Add, Button, x35 y+15 w60 h25 gadd, Add/Edit
 	Gui, main:Add, Button, x105 y+-25 w60 h25 gpath, Set Path
-	guiHeight := buttonRows * 42.5
+	Gui, Font, s8 bold, MS Sans Serif
+	Gui, main:Add, Text, x20, Press Esc to reset application
+	guiHeight := buttonRows * 42.5 + 25
 	Gui, main:Show, w200 h%guiHeight%
 }
 
@@ -28,9 +30,9 @@ path() {
 	FileCreateDir, %A_ScriptDir%\pre
 	MsgBox, 48, ,
 	(
-Confirm the location VALORANT is installed.`n
-The file should be named RiotClientServices.exe`n
-Example installation path: C:\Riot Games\Riot Client\RiotClientServices.exe
+Navigate to the location the Riot Client is installed.`n
+The file is named RiotClientServices.exe`n
+Default installation path: C:\Riot Games\Riot Client\RiotClientServices.exe
 	)
 	IfMsgBox, OK
 		FileSelectFile, riotClientPath
@@ -99,32 +101,29 @@ submit() {
 	main()
 }
 
-login(x, y) {
+login(user, pass, x, y) {
 	saved := clipboard
 	readyCounter := 0
 	while (readyCounter < 2) {
-		MouseMove, 190, 255
+		MouseMove, %x%, %y%
 		if (A_Cursor = "IBeam") {
 			readyCounter += 1
-			Sleep, 300
 		}
-		else {
-			Sleep, 100
-		}
+		Sleep, 100
 	}
-	MouseClick, left, 190, 255
+	MouseClick, left, %x%, %y%
 	Sleep, 100
 	Send, ^a
 	Sleep, 100
 	Send, {Delete}
 	Sleep, 100
-	clipboard := x
+	clipboard := user
 	Sleep, 100
 	Send, ^v
 	Sleep, 100
 	Send, %A_Tab%
 	Sleep, 100
-	clipboard := y
+	clipboard := pass
 	Sleep, 100
 	Send, ^v
 	Sleep, 100
@@ -133,7 +132,7 @@ login(x, y) {
 	Sleep, 500
 }
 
-openClient(x, y) {
+openClient(user, pass) {
 	main()
 	HitList:="VALORANT.exe|VALORANT-Win64-Shipping.exe|RiotClientServices.exe"
 	Loop, Parse, HitList, |
@@ -152,7 +151,9 @@ openClient(x, y) {
 	SetTitleMatchMode, 2
 	WinActivate, ahk_exe Riot Client.exe
 	WinWaitActive, ahk_exe Riot Client.exe
-	login(x, y)
+	x = 300
+	y = 396
+	login(user, pass, x, y)
 }
 
 Esc::ExitApp
